@@ -1,21 +1,41 @@
-const { ApolloServer, gql } = require('apollo-server');
+const express = require("express");
+const mongoose = require("mongoose");
+const schema = require("./schema");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = gql`
-    # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+const { ApolloServer } = require("apollo-server-express");
 
-    # This "Book" type defines the queryable fields for every book in our data source.
-    type Book {
-        title: String
-        author: String
-    }
+const { MONGO_CONNECTION_URL } = require("./common");
 
-    # The "Query" type is special: it lists all of the available queries that
-    # clients can execute, along with the return type for each. In this
-    # case, the "books" query returns an array of zero or more Books (defined above).
-    type Query {
-        books: [Book]
-    }
-`;
+console.log(MONGO_CONNECTION_URL);
+
+const connect = mongoose.connect(MONGO_CONNECTION_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+connect.then(
+  db => {
+    console.log("Connected correctly to server!");
+  },
+  err => {
+    console.log(err);
+  }
+);
+
+const server = new ApolloServer({
+  typeDefs: schema.typeDefs,
+  resolvers: schema.resolvers
+});
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use("*", cors());
+
+server.applyMiddleware({ app });
+
+app.listen({ port: 4000 }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+);

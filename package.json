@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node -r esm .",
+    "dev": "nodemon -r esm"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,10 @@
   },
   "homepage": "https://github.com/d90375/test-server-mova#readme",
   "dependencies": {
-    "apollo-server": "^2.19.0",
-    "graphql": "^15.4.0"
+    "apollo-server-express": "^2.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.8"
   }
 }
