@@ -8,15 +8,27 @@ import { PORT, IN_PROD, MONGO_CONNECTION_URL } from "./config";
 
 // Initialize the Express application
 const app = express();
+app.use(AuthMiddleware);
 
 import { typeDefs, resolvers } from "./graphql";
+import AuthMiddleware from "./middlewares/auth";
+import { schemaDirectives } from "./graphql/directives";
 
 // playground - access to graphql on production mode
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  schemaDirectives,
   playground: IN_PROD,
-  context: { ...AppModels }
+  context: ({ req }) => {
+    let { isAuth, user } = req;
+    return {
+      req,
+      isAuth,
+      user,
+      ...AppModels
+    };
+  }
 });
 
 const startApp = async () => {

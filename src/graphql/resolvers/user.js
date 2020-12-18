@@ -1,10 +1,44 @@
 import { ApolloError } from "apollo-server-express";
-import { hash } from "bcryptjs";
+import { hash, compare } from "bcryptjs";
 
 import { issueToken, serializeUser } from "../../functions";
 
 export default {
   Query: {
+    authUserProfile: async (_, {}, { user }) => {
+      return user;
+    },
+    authenticateUser: async (_, { username, password }, { User }) => {
+      try {
+        // Find user by username
+        let user = await User.findOne({ username });
+        if (!user) {
+          throw new ApolloError("Username not found.", "403");
+        }
+
+        // Check for the password
+        let isMatch = await compare(password, user.password);
+        if (!isMatch) {
+          throw new ApolloError("Invalid password.", "403");
+        }
+
+        // Serialize User
+        user = user.toObject();
+        user.id = user._id;
+        // user = { ...user, id: user._id };
+        user = serializeUser(user);
+
+        // Issues new Authentication Token
+        let token = await issueToken(user);
+
+        return {
+          user,
+          token
+        };
+      } catch (err) {
+        throw new ApolloError(err.message, "403");
+      }
+    },
     getAllUsers: async (_, {}, { User }) => {
       return await User.find();
     },
