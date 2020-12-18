@@ -1,0 +1,49 @@
+query GET_USER {
+  getUserId(id: "5fdcb74aab6ebd050070406d") {
+    id
+    username
+    email
+  }
+}
+
+query GET_ALL_USERS {
+  getAllUsers {
+    id
+    username
+    firstName
+    lastName
+    createdAt
+    updatedAt
+    avatarImage
+  }
+}
+
+mutation DELETE_USER {
+  deleteUserById(id: "5fdcb74aab6ebd050070406d") {
+    id
+    success
+    message
+  }
+}
+
+mutation REGISTER_NEW_USER {
+  registerUser(
+    newUser: {
+      username: "d903751"
+      firstName: "Yauheni1"
+      lastName: "Vaniushyn"
+      email: "d903751@mail.ru"
+      password: "d90375password"
+    }
+  ) {
+    token
+    user {
+      id
+      username
+      firstName
+      lastName
+      email
+      avatarImage
+    }
+  }
+}

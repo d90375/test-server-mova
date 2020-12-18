@@ -1,7 +1,4 @@
 import baseDefs from "./baseDefs";
-import user from './user'
+import user from "./user";
 
-export default [
-    baseDefs,
-    user
-];
+export default [baseDefs, user];

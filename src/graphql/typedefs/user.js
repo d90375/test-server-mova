@@ -7,26 +7,35 @@ export default gql`
   }
 
   extend type Mutation {
-    createNewUser(newUser: UserInput!): User!
+    registerUser(newUser: UserInput!): AuthResp!
     deleteUserById(id: ID!): UserNatification
-    editUserById(updatedUser: UserInput, id: ID!): User!
   }
 
   input UserInput {
-    name: String!
-    login: String!
+    username: String!
+    firstName: String!
+    lastName: String!
+    email: String!
     password: String!
+    avatarImage: String
   }
 
   type User {
+    username: String!
+    firstName: String!
+    lastName: String!
+    email: String!
     id: ID!
-    name: String!
-    login: String!
-    password: String!
+    avatarImage: String
     createdAt: String
     updatedAt: String
   }
-  
+
+  type AuthResp {
+    user: User!
+    token: String!
+  }
+
   type UserNatification {
     id: ID!
     message: String!
