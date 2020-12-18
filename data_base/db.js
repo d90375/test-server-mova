@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-const { MONGO_CONNECTION_URL } = require("./common");
+const { MONGO_CONNECTION_URL } = require("../common");
 
-const Movie = require("./models/movie");
-const moviesJSON = require("./mock.json");
+const Movie = require("../old/movie");
+const moviesJSON = require("../mock.json");
 
 const movies = moviesJSON.map(movie => new Movie(movie));
 
