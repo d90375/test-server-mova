@@ -9,7 +9,7 @@ export default gql`
   }
 
   extend type Mutation {
-    registerUser(newUser: UserInput!): AuthResp! @isAuth
+    registerUser(newUser: UserInput!): AuthResp!
     deleteUserById(id: ID!): UserNatification! @isAuth
   }
 
