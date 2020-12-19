@@ -52,6 +52,7 @@ export default {
   },
   Mutation: {
     registerUser: async (_, { newUser }, { User }) => {
+      console.log(User)
       let { username, email } = newUser;
 
       // First Check if the username is already taken

@@ -4,8 +4,8 @@ const UserSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
-      createIndexes: { unique: true }
+      required: true
+        // createIndexes: { unique: true }
     },
     firstName: {
       type: String,

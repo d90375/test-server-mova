@@ -4,42 +4,53 @@ const WordSchema = new Schema(
   {
     title: {
       type: String,
-      required: true,
-      createIndexes: { unique: true }
+      required: true
+      // createIndexes: { unique: true }
     },
     value: {
       type: String,
-      required: true,
-      createIndexes: { unique: true }
-    },
-    correctValue: {
-      type: String,
       required: true
+      // createIndexes: { unique: true }
     },
-
+    // correctValue: {
+    //   type: String,
+    //   required: true
+    // },
     detailedDescription: {
       type: String,
-      required: true
+      default: ""
     },
-    placeFrom: {
+    place: {
       type: String,
-      required: true
+      default: ""
     },
     tags: {
       type: String,
-      required: true
+      default: ""
     },
     likeCount: {
       type: Number,
-      required: true
+      default: 0
     },
     dislikeCount: {
       type: Number,
-      required: true
+      default: 0
     },
     uncensored: {
       type: Boolean,
-      required: Boolean
+      default: false
+    },
+    createdAt: {
+      type: String,
+      default: ""
+    },
+    updatedAt: {
+      type: String,
+      default: ""
+    },
+    author: {
+      ref: "users",
+      type: Schema.Types.ObjectId
     }
   },
   {

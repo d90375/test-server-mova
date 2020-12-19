@@ -1,0 +1,85 @@
+query GET_ALL_WORDS {
+  getAllWords {
+    id
+    title
+    value
+    correctValue
+    detailedDescription
+    place
+    tags
+    uncensored
+    author {
+      id
+      username
+      firstName
+      lastName
+      email
+    }
+  }
+}
+
+mutation CREATE_NEW_WORD(
+  $title: String!
+  $value: String!
+  $uncensored: Boolean
+) {
+  createNewWord(
+    newWord: { title: $title, value: $value, uncensored: $uncensored }
+  ) {
+    title
+    value
+    uncensored
+    author {
+      id
+      username
+      firstName
+      lastName
+      email
+    }
+  }
+}
+
+query WORD_BY_ID($id: ID!) {
+  getWordById(id:$id) {
+    id
+    title
+    value
+    uncensored
+    updatedAt
+    createdAt
+  }
+}
+
+mutation UPDATE_WORD($id: ID!, $updatedWord: WordInput!) {
+  updateWordByID(id: $id, updatedWord: $updatedWord) {
+    id
+    title
+    value
+    uncensored
+    author {
+      id
+      username
+      firstName
+      lastName
+      email
+    }
+  }
+}
+
+// query example for upd post
+{
+  "id": "5fddcdd360115a3ce88f67c5",
+  "updatedWord": {
+        "title": "String!",
+    "value": "String!",
+    "uncensored": true
+  }
+}
+
+mutation DELETE_WORD($id: ID!) {
+  deleteWordByID(id: $id) {
+    id
+    message
+    success
+  }
+}
