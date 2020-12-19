@@ -18,6 +18,19 @@ query GET_ALL_WORDS {
   }
 }
 
+query GET_CURRENT_AUTHENTICATED_USER_WORDS{
+  getAuthenticatedUserWords{
+    id
+    title
+    value
+    correctValue
+    detailedDescription
+    place
+    tags
+    uncensored
+  }
+}
+
 mutation CREATE_NEW_WORD(
   $title: String!
   $value: String!

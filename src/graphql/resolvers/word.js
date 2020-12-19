@@ -16,6 +16,17 @@ export default {
       } catch (err) {
         throw new ApolloError(err.message);
       }
+    },
+    getAuthenticatedUserWords: async (_, {}, { Word, user }) => {
+      const users = await Word.find().populate("author");
+      const filteredUsers =  users.filter(
+        word => word.author._id.toString() === user._id.toString()
+      );
+      
+      if(!filteredUsers){
+        throw new Error("Words not found.");
+      }
+      return filteredUsers
     }
   },
   Mutation: {

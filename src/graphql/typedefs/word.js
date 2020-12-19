@@ -4,6 +4,7 @@ export default gql`
   extend type Query {
     getAllWords: [Word!]!
     getWordById(id: ID!): Word!
+    getAuthenticatedUserWords: [Word!]! @isAuth
   }
 
   extend type Mutation {
